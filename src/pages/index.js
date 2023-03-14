@@ -8,7 +8,7 @@ import * as styles from "../components/index.module.css"
 
 const data = useStaticQuery(graphql`
     query MyQuery {
-      allWpPost(sort: {fields: date, order: DESC}, limit: 10) {
+      posts(sort: {fields: date, order: DESC}, limit: 10) {
         edges {
           node {
             id
