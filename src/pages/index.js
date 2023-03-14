@@ -7,7 +7,7 @@ import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
 const data = useStaticQuery(graphql`
-    query MyQuery {
+    query {
       posts(sort: {fields: date, order: DESC}, limit: 10) {
         edges {
           node {
