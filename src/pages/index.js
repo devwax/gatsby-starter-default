@@ -31,6 +31,8 @@ const data = useStaticQuery(graphql`
     }
   `)
 
+console.log('data', data);
+
 const links = [
   {
     text: "Tutorial",
@@ -143,14 +145,14 @@ const IndexPage = () => (
 
     <hr />
 
-    {data.allWpPost.edges.map(({ node }) => (
+    {/* {data.allWpPost.edges.map(({ node }) => (
       <div key={node.id}>
         <h2>{node.title}</h2>
         <p>{node.excerpt}</p>
         <p>{node.date}</p>
         <img src={node.featuredImage.node.localFile.childImageSharp.gatsbyImageData} alt={node.title} />
       </div>
-    ))}
+    ))} */}
 
   </Layout>
 )
