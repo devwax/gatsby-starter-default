@@ -1,10 +1,35 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, graphql, useStaticQuery } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
+
+const data = useStaticQuery(graphql`
+    query MyQuery {
+      allWpPost(sort: {fields: date, order: DESC}, limit: 10) {
+        edges {
+          node {
+            id
+            title
+            excerpt
+            date(formatString: "MMMM DD, YYYY")
+            slug
+            featuredImage {
+              node {
+                localFile {
+                  childImageSharp {
+                    gatsbyImageData(width: 800, height: 400, layout: CONSTRAINED)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
 
 const links = [
   {
@@ -115,6 +140,18 @@ const IndexPage = () => (
         {i !== moreLinks.length - 1 && <> · </>}
       </React.Fragment>
     ))}
+
+    <hr />
+
+    {data.allWpPost.edges.map(({ node }) => (
+      <div key={node.id}>
+        <h2>{node.title}</h2>
+        <p>{node.excerpt}</p>
+        <p>{node.date}</p>
+        <img src={node.featuredImage.node.localFile.childImageSharp.gatsbyImageData} alt={node.title} />
+      </div>
+    ))}
+
   </Layout>
 )
 
